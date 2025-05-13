@@ -1,0 +1,104 @@
+{
+  "fragments": [
+    {
+      "name": "nav",
+      "path": "/nav",
+      "instances": [
+        {
+          "url": "https://main--stini--bhellema.aem.live/",
+          "urlHash": "17a70eabcdb8591f608137d499ee8cd991ee6cc5",
+          "uuid": "17a70eab-00-b2c8ec8cc7206114599cd049698cc67e0e048d63",
+          "xpath": "/html[1]/body[1]/header[1]"
+        }
+      ]
+    },
+    {
+      "name": "footer",
+      "path": "/footer",
+      "instances": [
+        {
+          "url": "https://main--stini--bhellema.aem.live/",
+          "urlHash": "17a70eabcdb8591f608137d499ee8cd991ee6cc5",
+          "uuid": "17a70eab-06-a507e040135207256fc0c4fd07f12510b5a9e729",
+          "xpath": "/html[1]/body[1]/footer[1]"
+        }
+      ]
+    }
+  ],
+  "blocks": [
+    {
+      "name": "Cards",
+      "cluster": 1,
+      "instances": [
+        {
+          "url": "https://main--stini--bhellema.aem.live/",
+          "urlHash": "17a70eabcdb8591f608137d499ee8cd991ee6cc5",
+          "uuid": "17a70eab-02-ca8712c1b8a873222ab45e96f65d719ac9cb297b",
+          "xpath": "/html[1]/body[1]/main[1]/div[1]/div[2]"
+        },
+        {
+          "url": "https://main--stini--bhellema.aem.live/",
+          "urlHash": "17a70eabcdb8591f608137d499ee8cd991ee6cc5",
+          "uuid": "17a70eab-04-516bd61c849c9e46833f85a0f2c9b3ecf6eeafe8",
+          "xpath": "/html[1]/body[1]/main[1]/div[2]/div[2]"
+        }
+      ]
+    },
+    {
+      "name": "Columns",
+      "cluster": 2,
+      "instances": [
+        {
+          "url": "https://main--stini--bhellema.aem.live/",
+          "urlHash": "17a70eabcdb8591f608137d499ee8cd991ee6cc5",
+          "uuid": "17a70eab-06-a507e040135207256fc0c4fd07f12510b5a9e729",
+          "xpath": "/html[1]/body[1]/footer[1]"
+        }
+      ]
+    },
+    {
+      "name": "Carousel",
+      "cluster": 3,
+      "instances": [
+        {
+          "url": "https://main--stini--bhellema.aem.live/",
+          "urlHash": "17a70eabcdb8591f608137d499ee8cd991ee6cc5",
+          "uuid": "17a70eab-01-1202332ce7cd8307efd803d8735fefc8bda3f610",
+          "xpath": "/html[1]/body[1]/main[1]/div[1]/div[1]"
+        }
+      ]
+    },
+    {
+      "name": "Hero",
+      "cluster": 4,
+      "instances": [
+        {
+          "url": "https://main--stini--bhellema.aem.live/",
+          "urlHash": "17a70eabcdb8591f608137d499ee8cd991ee6cc5",
+          "uuid": "17a70eab-05-cef69c1c9b3b977460459f3e8ca29ed9bce09408",
+          "xpath": "/html[1]/body[1]/main[1]/div[2]/div[3]"
+        }
+      ]
+    },
+    {
+      "name": "Embed (video)",
+      "cluster": 5,
+      "instances": [
+        {
+          "url": "https://main--stini--bhellema.aem.live/",
+          "urlHash": "17a70eabcdb8591f608137d499ee8cd991ee6cc5",
+          "uuid": "17a70eab-00-b2c8ec8cc7206114599cd049698cc67e0e048d63",
+          "xpath": "/html[1]/body[1]/header[1]"
+        }
+      ]
+    }
+  ],
+  "outliers": [
+    {
+      "url": "https://main--stini--bhellema.aem.live/",
+      "urlHash": "17a70eabcdb8591f608137d499ee8cd991ee6cc5",
+      "uuid": "17a70eab-03-8cdf091a50d8a29688208f1a49c3aa0874e36321",
+      "xpath": "/html[1]/body[1]/main[1]/div[2]/div[1]"
+    }
+  ]
+}
