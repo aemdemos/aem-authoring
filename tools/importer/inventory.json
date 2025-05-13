@@ -3,13 +3,13 @@
   "blocks": [
     {
       "name": "Hero",
-      "cluster": 4,
+      "cluster": 3,
       "instances": [
         {
           "url": "https://main--stini--bhellema.aem.live/",
           "urlHash": "17a70eabcdb8591f608137d499ee8cd991ee6cc5",
-          "uuid": "17a70eab-05-cef69c1c9b3b977460459f3e8ca29ed9bce09408",
-          "xpath": "/html[1]/body[1]/main[1]/div[2]/div[3]"
+          "uuid": "17a70eab-01-1202332ce7cd8307efd803d8735fefc8bda3f610",
+          "xpath": "/html[1]/body[1]/main[1]/div[1]/div[1]"
         }
       ]
     }
