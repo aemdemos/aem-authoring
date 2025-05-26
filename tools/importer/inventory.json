@@ -3,6 +3,7 @@
   "blocks": [
     {
       "name": "Hero",
+      "key": "hero3",
       "cluster": 3,
       "instances": [
         {
