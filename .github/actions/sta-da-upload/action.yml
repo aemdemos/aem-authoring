@@ -1,0 +1,19 @@
+name: "Upload DA"
+description: "Upload the Import Zip for DA"
+author: "Experience Catalyst"
+inputs:
+  upload_token:
+    description: "The base64-encoded token to use for the upload."
+    required: true
+  root_mountpoint:
+    description: "The target of the upload. This is the Adobe AEM Cloud URL."
+    required: true
+  zip_path:
+    description: "The path to the contents of the Import zip"
+    required: true
+  zip_name:
+    description: "The path in the zip_path contents folder to the DA zip package"
+    required: false
+runs:
+  using: 'node20'
+  main: 'sta-da-upload.js'
