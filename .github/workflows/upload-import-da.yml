@@ -51,18 +51,6 @@ jobs:
             ACTION_URL="JS_LFJS_LF🕵 See the Action URL to check the progress/results of the workflow: ${{ github.event.inputs.action_url }}"
             echo "ACTION_URL=$ACTION_URL" >> $GITHUB_ENV
           fi
-          
-          # Required parameters
-          missing_vars=""
-      
-          if [ -z "${{ env.DA_UPLOAD_TOKEN }}" ]; then
-            missing_vars+="JS_LF- DA_UPLOAD_TOKEN (secret) "
-          fi
-
-          if [ -n "$missing_vars" ]; then
-            errorMessage="❌ The following variables are not set in your GitHub repo: $missing_vars JS_LF"
-            echo "errorMessage=$errorMessage" >> $GITHUB_ENV
-          fi
 
       - name: Checkout
         uses: actions/checkout@v4
