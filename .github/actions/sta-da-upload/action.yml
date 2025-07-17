@@ -4,7 +4,7 @@ author: "Experience Catalyst"
 inputs:
   upload_token:
     description: "The base64-encoded token to use for the upload."
-    required: true
+    required: false
   root_mountpoint:
     description: "The target of the upload. This is the Adobe AEM Cloud URL."
     required: true
