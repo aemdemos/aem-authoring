@@ -137,8 +137,7 @@ jobs:
         uses: ./.github/actions/sta-da-upload
         with:
             upload_token: ${{ env.DA_UPLOAD_TOKEN }}
-            root_mountpoint: ${{ github.event.inputs.root_mountpoint }}
-            skip_assets: ${{ github.event.inputs.skip_assets }}
+            target: ${{ github.event.inputs.root_mountpoint }}
             zip_path: ${{ steps.download-zip.outputs.temp_dir }}/contents
             zip_name: ${{ steps.download-zip.outputs.da_zip }}
 

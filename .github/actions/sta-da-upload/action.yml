@@ -5,7 +5,7 @@ inputs:
   upload_token:
     description: "The base64-encoded token to use for the upload."
     required: false
-  root_mountpoint:
+  target:
     description: "The target of the upload. This is the Adobe AEM Cloud URL."
     required: true
   zip_path:

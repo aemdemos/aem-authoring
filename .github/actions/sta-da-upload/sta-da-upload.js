@@ -44,7 +44,7 @@ async function runUpload(
       reject(new Error(`Failed to extract org and repo from target: ${target}`));
       return;
     }
-    
+
     const args = [
       '@adobe/aem-import-helper',
       'aem',
@@ -53,7 +53,7 @@ async function runUpload(
       "--repo", repo,
       "--asset-list", assetListPath,
       "--da-folder", daZipPath,
-      "--download-folder", target, 
+      "--download-folder", target,
       "--auth-token", token
     ];
 
@@ -90,22 +90,20 @@ async function runUpload(
  */
 export async function run() {
   const token = core.getInput('upload_token');
-  const target = core.getInput('root_mountpoint');
+  const target = core.getInput('target');
   const zipPath = core.getInput('zip_path');
   const zipName = core.getInput('zip_name');
 
   try {
-    const url = new URL(target);
-    const hostTarget = `${url.origin}/`;
     const assetListPath = `${zipPath}/asset-list.json`;
     const fullZipPath = path.join(zipPath, zipName || 'da-index.zip');
 
-    core.info(`✅ Uploading "${fullZipPath}" and "${assetListPath}" to ${hostTarget}.`);
+    core.info(`✅ Uploading "${fullZipPath}" and "${assetListPath}" to ${target}.`);
 
     await runUpload(
       fullZipPath,
       assetListPath,
-      hostTarget,
+      target,
       token,
     );
     core.info('✅ Upload completed successfully.');
