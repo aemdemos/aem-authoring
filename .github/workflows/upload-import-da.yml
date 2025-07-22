@@ -6,6 +6,7 @@ description: |
 
 env:
   DA_UPLOAD_TOKEN: ${{ secrets.DA_UPLOAD_TOKEN }}
+  AEMY_API_KEY: ${{ secrets.AEMY_API_KEY }}
 on:
   workflow_dispatch:
     inputs:
@@ -14,7 +15,7 @@ on:
         description: 'The URL of the zip file to download.'
         required: true
         type: password
-      aemy_callbacks:
+      aemy_callbacks_urls:
         description: 'The AEMY context as a string.'
         required: true
         type: password
@@ -51,6 +52,18 @@ jobs:
             ACTION_URL="JS_LFJS_LF🕵 See the Action URL to check the progress/results of the workflow: ${{ github.event.inputs.action_url }}"
             echo "ACTION_URL=$ACTION_URL" >> $GITHUB_ENV
           fi
+          
+          # Ensure the secret was set, and was set in the env variable properly.
+          if [ -z "${{ env.DA_UPLOAD_TOKEN }}" ]; then
+            errorMessage="❌ The following secret is not set in your GitHub repo: JS_LF- DA_UPLOAD_TOKEN JS_LF"
+            echo "errorMessage=$errorMessage" >> $GITHUB_ENV
+          fi
+
+          # Ensure the secret was set, and was set in the env variable properly.
+          if [ -z "${{ env.AEMY_API_KEY }}" ]; then
+            errorMessage="❌ The following secret is not set in your GitHub repo: JS_LF- AEMY_API_KEY JS_LF"
+            echo "errorMessage=$errorMessage" >> $GITHUB_ENV
+          fi
 
       - name: Checkout
         uses: actions/checkout@v4
@@ -68,7 +81,7 @@ jobs:
         if: ${{ env.errorMessage != '' }}
         uses: ./.github/actions/sta-status
         with:
-          callbacks: ${{ github.event.inputs.aemy_callbacks }}
+          callbacks: ${{ github.event.inputs.aemy_callbacks_urls }}
           context: ${{ github.event.inputs.aemy_context }}
           message: ${{ env.errorMessage }}
           status_type: error
@@ -77,7 +90,7 @@ jobs:
       - name: Progress 1 - Setup
         uses: ./.github/actions/sta-status
         with:
-          callbacks: ${{ github.event.inputs.aemy_callbacks }}
+          callbacks: ${{ github.event.inputs.aemy_callbacks_urls }}
           context: ${{ github.event.inputs.aemy_context }}
           message: Inputs look good. Now setting up the upload. (Step 1 of 5).
           status_type: progress
@@ -90,7 +103,7 @@ jobs:
       - name: Progress 2 - Extracting zip
         uses: ./.github/actions/sta-status
         with:
-          callbacks: ${{ github.event.inputs.aemy_callbacks }}
+          callbacks: ${{ github.event.inputs.aemy_callbacks_urls }}
           context: ${{ github.event.inputs.aemy_context }}
           message: Downloading and extracting content from the Import zip... (Step 2 of 5).
           status_type: progress
@@ -106,27 +119,17 @@ jobs:
         if: ${{ steps.download-zip.outputs.error_message != '' }}
         uses: ./.github/actions/sta-status
         with:
-          callbacks: ${{ github.event.inputs.aemy_callbacks }}
+          callbacks: ${{ github.event.inputs.aemy_callbacks_urls }}
           context: ${{ github.event.inputs.aemy_context }}
           message: ${{ steps.download-zip.outputs.error_message }} ${{ env.ACTION_URL }}
           status_type: error
           agent_name: upload-import-da
 
-      - name: Progress 3a - Initiating upload with default zip name
-        if: ${{ steps.download-zip.outputs.da_zip == '' }}
+      - name: Progress 3a - Initiating da upload
+        if: ${{ steps.download-zip.outputs.temp_dir != '' }}
         uses: ./.github/actions/sta-status
         with:
-          callbacks: ${{ github.event.inputs.aemy_callbacks }}
-          context: ${{ github.event.inputs.aemy_context }}
-          message: Zip extracted with ${{ steps.download-zip.outputs.file_count }} files but the DA zip was not found so will assume \"da-index.zip\". Initiating upload... (Step 3 of 5).
-          status_type: progress
-          agent_name: upload-import-da
-
-      - name: Progress 3b - Initiating upload with found zip name
-        if: ${{ steps.download-zip.outputs.da_zip != '' }}
-        uses: ./.github/actions/sta-status
-        with:
-          callbacks: ${{ github.event.inputs.aemy_callbacks }}
+          callbacks: ${{ github.event.inputs.aemy_callbacks_urls }}
           context: ${{ github.event.inputs.aemy_context }}
           message: Zip extracted with ${{ steps.download-zip.outputs.file_count }} files. Initiating upload... (Step 3 of 5).
           status_type: progress
@@ -134,29 +137,29 @@ jobs:
 
       - name: Run DA upload action
         id: da-upload-step
-        uses: ./.github/actions/sta-da-upload
+        uses: ./.github/actions/sta-da-helper
         with:
-            upload_token: ${{ env.DA_UPLOAD_TOKEN }}
             target: ${{ github.event.inputs.root_mountpoint }}
-            zip_path: ${{ steps.download-zip.outputs.temp_dir }}/contents
-            zip_name: ${{ steps.download-zip.outputs.da_zip }}
+            skip_assets: ${{ github.event.inputs.skip_assets }}
+            content_path: ${{ steps.download-zip.outputs.temp_dir }}/contents
+            operation: upload       
 
       - name: Report if upload failed
         if: ${{ steps.da-upload-step.outputs.error_message != '' }}
         uses: ./.github/actions/sta-status
         with:
-          callbacks: ${{ github.event.inputs.aemy_callbacks }}
+          callbacks: ${{ github.event.inputs.aemy_callbacks_urls }}
           context: ${{ github.event.inputs.aemy_context }}
-          message: ${{ steps.da-upload-step.outputs.error_message }} ${{ env.ACTION_URL }}
+          message: ${{ steps.da-upload-step.outputs.error_message }} ${{ env.ACTION_URL }} (Step 4 of 5).
           status_type: error
           agent_name: upload-import-da
 
       - name: Report upload success
         uses: ./.github/actions/sta-status
         with:
-          callbacks: ${{ github.event.inputs.aemy_callbacks }}
+          callbacks: ${{ github.event.inputs.aemy_callbacks_urls }}
           context: ${{ github.event.inputs.aemy_context }}
-          message: DA upload succeeded.
+          message: DA upload succeeded. (Step 5 of 5).
           status_type: ok
           agent_name: upload-import-da
 
