@@ -18,4 +18,4 @@ inputs:
     default: upload
 runs:
   using: 'node20'
-  main: 'sta-da-upload.js'
+  main: 'sta-da-helper.js'

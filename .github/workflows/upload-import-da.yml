@@ -74,7 +74,7 @@ jobs:
           npm install
           cd ../sta-import-zip
           npm install
-          cd ../sta-da-upload
+          cd ../sta-da-helper
           npm install
 
       - name: Report if inputs are invalid
